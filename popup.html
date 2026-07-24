@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TTD Form Assistant</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>TTD Form Assistant</h1>
+      <p>Fills the visible pilgrim and general-detail fields after you manually choose the date and slot.</p>
+    </header>
+
+    <section id="lockedPanel" class="panel">
+      <h2 id="vaultHeading">Unlock encrypted vault</h2>
+      <label for="passphrase">Passphrase</label>
+      <input id="passphrase" type="password" minlength="8" autocomplete="current-password" placeholder="At least 8 characters">
+      <button id="unlockButton" class="primary full">Unlock</button>
+      <p class="hint">The passphrase is never stored. A lost passphrase cannot be recovered.</p>
+    </section>
+
+    <section id="appPanel" class="hidden">
+      <div class="toolbar panel">
+        <div class="grow">
+          <label for="groupSelect">Booking profile</label>
+          <select id="groupSelect"></select>
+        </div>
+        <button id="newGroupButton" title="Create profile">New</button>
+        <button id="renameGroupButton" title="Rename profile">Rename</button>
+        <button id="deleteGroupButton" class="danger-text" title="Delete profile">Delete</button>
+      </div>
+
+      <section class="panel">
+        <h2>General details</h2>
+        <label>Email
+          <input id="generalEmail" type="email" autocomplete="email" maxlength="150" placeholder="Booking contact email">
+        </label>
+        <div class="two-columns">
+          <label>City
+            <input id="generalCity" type="text" autocomplete="address-level2" maxlength="80">
+          </label>
+          <label>State
+            <input id="generalState" type="text" autocomplete="address-level1" maxlength="80">
+          </label>
+        </div>
+        <div class="two-columns">
+          <label>Country
+            <input id="generalCountry" type="text" autocomplete="country-name" maxlength="80" value="India">
+          </label>
+          <label>Pincode
+            <input id="generalPincode" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="12">
+          </label>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <h2>Pilgrims</h2>
+          <button id="addPilgrimButton">Add pilgrim</button>
+        </div>
+        <div id="pilgrimList"></div>
+        <button id="saveButton" class="primary full">Save encrypted</button>
+      </section>
+
+      <section class="panel">
+        <h2>Current TTD page</h2>
+        <label class="check-row">
+          <input id="requireExactCount" type="checkbox" checked>
+          Require exact pilgrim-row count
+        </label>
+        <label class="check-row">
+          <input id="overwriteExisting" type="checkbox">
+          Replace existing values
+        </label>
+        <div class="button-grid">
+          <button id="previewButton">Preview fields</button>
+          <button id="fillButton" class="primary">Fill visible form</button>
+        </div>
+        <button id="clearHighlightsButton" class="full secondary">Clear highlights</button>
+        <p class="hint">The tool never selects dates or slots, adds rows, submits, retries, checks out, or opens payment.</p>
+      </section>
+
+      <section id="status" class="status" aria-live="polite"></section>
+      <button id="lockButton" class="full secondary">Lock vault</button>
+    </section>
+  </main>
+
+  <datalist id="idTypeOptions">
+    <option value="Aadhaar Card"></option>
+    <option value="Passport"></option>
+    <option value="Voter ID"></option>
+    <option value="Driving Licence"></option>
+    <option value="PAN Card"></option>
+    <option value="Ration Card"></option>
+  </datalist>
+
+  <template id="pilgrimTemplate">
+    <article class="pilgrim-card">
+      <div class="card-heading">
+        <strong class="pilgrim-number"></strong>
+        <button type="button" class="remove-pilgrim danger-text">Remove</button>
+      </div>
+      <label>Name
+        <input class="full-name" type="text" autocomplete="off" maxlength="100" placeholder="Exactly as on photo ID">
+      </label>
+      <div class="two-columns">
+        <label>Age
+          <input class="age" type="number" min="1" max="120" inputmode="numeric">
+        </label>
+        <label>Gender
+          <select class="gender">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+      </div>
+      <label>Photo ID Proof
+        <input class="id-type" type="text" list="idTypeOptions" autocomplete="off" maxlength="60" placeholder="Use TTD dropdown wording">
+      </label>
+      <label>Photo ID Number
+        <input class="id-number" type="password" autocomplete="off" maxlength="40" placeholder="Stored encrypted">
+      </label>
+      <label class="check-row compact">
+        <input class="show-id" type="checkbox">
+        Show ID number
+      </label>
+    </article>
+  </template>
+
+  <script src="crypto.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

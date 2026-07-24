@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "TTD Form Assistant",
+  "version": "1.1.0",
+  "description": "Stores encrypted TTD booking profiles and fills visible pilgrim and general-detail fields after manual slot selection.",
+  "minimum_chrome_version": "102",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://ttdevasthanams.ap.gov.in/*",
+    "https://*.ttdevasthanams.ap.gov.in/*"
+  ],
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_title": "TTD Form Assistant",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ttdevasthanams.ap.gov.in/*",
+        "https://*.ttdevasthanams.ap.gov.in/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle",
+      "all_frames": false,
+      "world": "ISOLATED"
+    }
+  ]
+}
