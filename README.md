@@ -76,3 +76,11 @@ Aadhaar and other identity numbers are highly sensitive. Use this only on a trus
 ## Compatibility note
 
 The screenshot confirms the field names but does not reveal the portal’s HTML structure. Version 1.1 supports native selects and common Angular Material/MUI-style comboboxes. TTD can change its page structure at any time. Always run **Preview fields** first. If a dropdown remains unfilled, enter it manually and capture the opened dropdown plus the browser Inspect Element HTML for that field before changing the extension.
+## Disclaimer
+
+Form Assistant is an independent educational project. It is not affiliated
+with, endorsed by, or officially connected to Tirumala Tirupati
+Devasthanams.
+
+The extension does not select slots, bypass queues, solve CAPTCHAs,
+submit bookings, or process payments.
